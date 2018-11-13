@@ -1,4 +1,0 @@
-- block:
-  - fail: msg="Non hai definito il parametro etl. Rilancia il playbook con -e etl= "
-  when:
-  - etl is not defined

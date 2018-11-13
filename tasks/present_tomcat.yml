@@ -16,7 +16,7 @@
   check_mode: false
   register: altre_app
   
-- debug: msg="Il tomcat su questo server è usato anche da altre applicazioni"
+- debug: msg="Il tomcat su questo server è usato anche da altre applicazioni. Non lo disabilito"
   when: altre_app.stdout != ""
   
 - include: delete_tomcat.yml

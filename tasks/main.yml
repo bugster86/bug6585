@@ -9,7 +9,7 @@
   changed_when: false
 
 
-- include: check_etl_parameter.yml
+- include: check_parameter.yml
   delegate_to: localhost
   run_once: true
 

@@ -1,0 +1,15 @@
+- block:
+  - fail: msg="Non hai definito il parametro etl"
+  - meta: end_play
+  when:
+  - etl is not defined
+- block:
+  - fail: msg="Non hai definito il parametro database"
+  - meta: end_play
+  when:
+  - database is not defined
+- block:
+  - fail: msg="Non hai definito il parametro pentaho"
+  - meta: end_play
+  when:
+  - pentaho is not defined  
