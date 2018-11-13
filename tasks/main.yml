@@ -8,6 +8,9 @@
   delegate_to: localhost
   changed_when: false
 
+
 - include: check_etl_parameter.yml
+  delegate_to: localhost
+  run_once: true
 
 - include: present_tomcat.yml
