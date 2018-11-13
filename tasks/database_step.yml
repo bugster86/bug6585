@@ -1,0 +1,39 @@
+- name: creo la cartella "{{ cartella }}"
+  file:
+    path: "{{ cartella }}"
+    state: directory
+- name: copio il materiale necessario nella cartella "{{ cartella }}"
+  copy:
+    src: "{{ item }}"
+    dest: "{{ cartella }}"
+    mode: 0777
+  with_items:
+  - "{{ src_tar }}/vendors/liquibase/liquibase.jar"
+  - "{{ src_tar }}/vendors/lib/mysql-connector-java-5.1.27-bin.jar"
+  - "{{ src_tar }}/database/liquibase/statistics_config_changeLog.xml"
+  - "{{ src_tar }}/database/liquibase/statistics_dwh_changeLog.xml"
+  - "{{ src_tar }}/database/liquibase/statistics_staging_changeLog.xml"
+
+- name: Esiste /usr/java/default/bin/java ?
+  stat: path=/usr/java/default/bin/java
+  register: jdk_6585
+
+- name: scompatta la JDK
+  unarchive:
+    src: /mnt/qasr/Vendors/Oracle/JDK/jdk-7u40-linux-x64.tar.gz
+    dest: /
+  when: jdk_6585 is defined and jdk_6585.stat.exists == false
+  
+- name: eseguo gli Step di liquibase
+  shell: chdir="{{ cartella }}" java -jar liquibase.jar --driver=com.mysql.jdbc.Driver --classpath=mysql-connector-java-5.1.27-bin.jar --changeLogFile={{ item.codice }} --url="jdbc:mysql://"{{ ansible_hostname }}":3306/"{{ item.schema }}"" --username='easycim' --password='3a$yc1m_{{ database.split('-')[0] }}' update
+  environment:
+  - PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/opt/glassfish/bin:/usr/java/default:/usr/java/default/bin
+  with_items:
+  - { codice: 'statistics_dwh_changeLog.xml' , schema: 'statistics_dwh' }
+  - { codice: 'statistics_config_changeLog.xml' , schema: 'statistics_config' }
+  - { codice: 'statistics_staging_changeLog.xml' , schema: 'statistics_staging' }
+
+- name: cancello la cartella "{{ cartella }}"
+  file:
+    path:  "{{ cartella }}"
+    state: absent  

@@ -3,5 +3,5 @@
 
 - name: scompatto la cartella {{ src_tar }}
   unarchive:
-    src: "{{ src_tar }}"
+    src: "{{ src_rdp }}/etl.tar.gz"
     dest: /var/opt/pentaho/statistics/
