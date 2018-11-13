@@ -21,6 +21,9 @@
   
 - include: database_step.yml
   when: inventory_hostname == database
+  
+- include: install_report.yml
+  when: "'ecas' in inventory_hostname"  
 
 - include: etl_step2.yml
   when: inventory_hostname == etl  

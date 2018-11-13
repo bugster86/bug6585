@@ -1,0 +1,26 @@
+# installiamo la tar.gz dei report su tutti gli ecas in cui
+# è presente la cartella /var/easycim3
+# è attivo glassfish
+
+# In questo modo anche se attualmente non è presente EasyCIM.war su quel server, può essere già pronto per il futuro
+
+- name: controlla la presenza della cartella /var/easycim3
+  stat: path=/var/easycim3
+  register: dir1
+
+- name: controllo che glassfish  sia attivo
+  shell: ps -ef | grep glassfish | grep -v grep
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  register: glassfish_attivo
+  
+- block:
+  - include: create_pool_statistics_config.yml
+  - include: set_report.yml   
+  
+  when:
+  - dir.stat.exists
+  - glassfish_attivo.rc == 0    
+  
+
