@@ -1,3 +1,4 @@
 ---
 # vars file for 6585
 bug: 6585
+src_tar: /mnt/qasr/Statistics/CTReport/RC/etl.tar.gz

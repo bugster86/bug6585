@@ -1,1 +1,7 @@
-- ping:
+- name: stoppo il servizio crond    
+  service: name=crond state=stopped
+
+- name: scompatto la cartella {{ src_tar }}
+  unarchive:
+    src: "{{ src_tar }}"
+    dest: /var/opt/pentaho/statistics/
