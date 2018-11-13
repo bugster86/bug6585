@@ -9,7 +9,6 @@
     state: absent
     path: "{{ item }}"
   with_items:
-  - /opt/tomcat/
   - /opt/apache-tomcat-8.0.33
   - /opt/data
   - /opt/pentaho-solutions
@@ -19,6 +18,10 @@
   - /etc/cron.d/tomcat.cron
   - /etc/profile.d/tomcat.sh
   - /etc/profile.d/pentaho.sh
+  - /opt/tomcat/
+  
+- name: Elimino lo user tomcat
+  user: name=tomcat force=yes remove=yes state=absent
 
 - name: lancio un updatedb
   shell: nice updatedb

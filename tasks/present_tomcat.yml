@@ -9,7 +9,18 @@
   check_mode: false
   register: processo_tomcat
   
+- name: Verifico che su tomcat non ci siano altre applicazioni web oltre a pentaho
+  shell: ls -1 /opt/tomcat/webapps | egrep -v 'auth|docs|examples|host-manager|localization|manager|pentaho|pentaho-style|ROOT'
+  failed_when: false
+  changed_when: false
+  check_mode: false
+  register: altre_app
+  
+- debug: msg="Il tomcat su questo server è usato anche da altre applicazioni"
+  when: altre_app.stdout != ""
+  
 - include: delete_tomcat.yml
   when:
   - cartella_tomcat.stat.exists
-  - processo_tomcat.rc == 0   
+  - processo_tomcat.rc == 0
+  - altre_app.stdout == ""
