@@ -18,7 +18,7 @@
   - /etc/cron.d/tomcat.cron
   - /etc/profile.d/tomcat.sh
   - /etc/profile.d/pentaho.sh
-  - /opt/tomcat/
+  - /opt/tomcat
   
 - name: Elimino lo user tomcat
   user: name=tomcat force=yes remove=yes state=absent
