@@ -21,4 +21,7 @@
   
 - include: database_step.yml
   when: inventory_hostname == database
+
+- include: etl_step2.yml
+  when: inventory_hostname == etl  
   

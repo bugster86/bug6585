@@ -1,0 +1,14 @@
+- name: kill di eventuali NRT rimasti appesi
+  shell: kill -9 $(ps -C org.pentaho.di.kitchen.Kitchen -o pid=)
+  failed_when: false
+  ignore_errors: yes
+
+- name: lancio lo script ./KITCHEN.sh NRT_RECOVERY
+  shell: chdir=/var/opt/pentaho/statistics/etl/ ./KITCHEN.sh NRT_RECOVERY
+  ignore_errors: yes
+  environment:
+  - PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/opt/glassfish/bin:/usr/java/default:/usr/java/default/bin"
+  - JAVA_HOME: "/usr/java/default"
+
+- name: start servizio crond
+  service: name=crond state=started
