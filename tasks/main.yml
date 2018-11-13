@@ -14,7 +14,7 @@
   run_once: true
 
 - include: present_tomcat.yml
-when: inventory_hostname == pentaho
+  when: inventory_hostname == pentaho
 
 - include: etl_step1.yml
   when: inventory_hostname == etl
