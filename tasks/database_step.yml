@@ -8,11 +8,11 @@
     dest: "{{ cartella }}"
     mode: 0777
   with_items:
-  - "{{ src_tar }}/vendors/liquibase/liquibase.jar"
-  - "{{ src_tar }}/vendors/lib/mysql-connector-java-5.1.27-bin.jar"
-  - "{{ src_tar }}/database/liquibase/statistics_config_changeLog.xml"
-  - "{{ src_tar }}/database/liquibase/statistics_dwh_changeLog.xml"
-  - "{{ src_tar }}/database/liquibase/statistics_staging_changeLog.xml"
+  - "{{ src_rdp }}/vendors/liquibase/liquibase.jar"
+  - "{{ src_rdp }}/vendors/lib/mysql-connector-java-5.1.27-bin.jar"
+  - "{{ src_rdp }}/database/liquibase/statistics_config_changeLog.xml"
+  - "{{ src_rdp }}/database/liquibase/statistics_dwh_changeLog.xml"
+  - "{{ src_rdp }}/database/liquibase/statistics_staging_changeLog.xml"
 
 - name: Esiste /usr/java/default/bin/java ?
   stat: path=/usr/java/default/bin/java

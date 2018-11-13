@@ -1,7 +1,7 @@
 - name: stoppo il servizio crond    
   service: name=crond state=stopped
 
-- name: scompatto la cartella {{ src_tar }}
+- name: scompatto la cartella {{ src_rdp }}
   unarchive:
     src: "{{ src_rdp }}/etl.tar.gz"
     dest: /var/opt/pentaho/statistics/
