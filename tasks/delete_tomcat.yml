@@ -1,0 +1,24 @@
+- name: stoppo e disabilito il servizio tomcat
+  service:
+    name: tomcat
+    state: stopped
+    enabled: false
+    
+- name: Elimino le componenti tomcat
+  file:
+    state: absent
+    path: "{{ item }}"
+  with_items:
+  - /opt/tomcat/
+  - /opt/apache-tomcat-8.0.33
+  - /opt/data
+  - /opt/pentaho-solutions
+  - /var/log/tomcat/
+  - /etc/logrotate.d/tomcat.rotate
+  - /usr/local/lib/systemd/system/tomcat.service
+  - /etc/cron.d/tomcat.cron
+  - /etc/profile.d/tomcat.sh
+  - /etc/profile.d/pentaho.sh
+
+- name: lancio un updatedb
+  shell: nice updatedb

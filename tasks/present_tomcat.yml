@@ -1,0 +1,15 @@
+- name: verifico se è presente la cartella di tomcat
+  stat: path=/opt/apache-tomcat-8.0.33
+  register: cartella_tomcat
+  
+- name: verifico se tomcat è attivo come processo
+  shell: ps -ef | grep tomcat | grep -v grep
+  failed_when: false
+  changed_when: false
+  check_mode: false
+  register: processo_tomcat
+  
+- include: delete_tomcat.yml
+  when:
+  - cartella_tomcat.stat.exists
+  - processo_tomcat.rc == 0   
