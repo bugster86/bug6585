@@ -1,0 +1,35 @@
+# Copio il file pool.xml da importare con un add-resources
+- name: posiziono il file pool.xml (valorizzo il template)
+  template: 
+    src: template/pool.j2
+    dest: /root/pool.xml
+    owner: root
+    group: root
+    mode: 0777
+
+- name: creazione del pool
+  shell: asadmin add-resources /root/pool.xml
+        PATH: "{{ ansible_env.PATH }}:/usr/java/default/bin:/opt/glassfish/bin/"  
+  failed_when: false
+  register: creazione_pool    
+
+- debug: msg="La creazione del pool jdbc statistics_config non è andata a buon fine. Controllare manualmente"
+  when: creazione_pool.rc != 0   
+
+- block:
+  - name: pingo il pool appena creato
+    shell: asadmin ping-connection-pool statistics_config
+          PATH: "{{ ansible_env.PATH }}:/usr/java/default/bin:/opt/glassfish/bin/"
+    changed_when: false
+    failed_when: false
+    register: ping_pool
+  
+  - debug: msg="Non riesco a pingare il pool jdbc appena creato. Controllare manualmente"
+    when: ping_pool.rc != 0  
+  
+  when: creazione_pool.rc == 0
+  
+    
+- name: cancello il file pool.xml
+  file: path=/root/pool.xml state=absent
+    
