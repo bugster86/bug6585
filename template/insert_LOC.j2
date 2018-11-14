@@ -1,0 +1,14 @@
+INSERT INTO `statistics_config`.`source_statlog`
+(`statlog_type`,
+`host_name`,
+`port_number`,
+`user_name`,
+`user_pwd`,
+`statlog_path`)
+VALUES
+('LOCALIZATION',
+'{{ inventory_hostname }}',
+22,
+'ctreport',
+'ctreport',
+'/var/easycim3/report/localization');

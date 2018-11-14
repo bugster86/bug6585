@@ -37,3 +37,7 @@
   file:
     path:  "{{ cartella }}"
     state: absent  
+    
+- name: cancello tutte le vecchie stringhe LOCALIZATION
+  shell: mysql -e "delete from statistics_config.source_statlog where statlog_type='LOCALIZATION'"    
+    

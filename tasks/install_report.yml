@@ -1,3 +1,25 @@
+# Per ogni ecas su cui stiamo lavorando creiamo l'utente ctreport con password ctreport per la
+# comunicazione con LOCALIZATION
+- name: creo l'utente ctreport
+  user:
+    comment: 'utente di comunicazione per LOCALIZATION report'
+    name: 'ctreport'
+    password: "{{ 'ctreport' | password_hash('sha512') }}"
+  
+- template:
+    dest: /tmp/dump.sql
+    src: template/insert_LOC.j2
+    owner: root
+    group: root
+    mode: 0777
+  delegate_to: "{{ database }}"    
+  
+- name: "inserisco la stringa di LOCALIZATION su {{ database }}"
+  shell: "mysql statistics_config < /tmp/dump.sql"
+  delegate_to: "{{ database }}"
+
+
+
 # installiamo la tar.gz dei report su tutti gli ecas in cui
 # è presente la cartella /var/easycim3
 # è attivo glassfish
