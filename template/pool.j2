@@ -7,7 +7,7 @@
  <jdbc-connection-pool fail-all-connections="true" steady-pool-size="4" datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource" idle-timeout-in-seconds="30" name="statistics_config" is-connection-validation-required="true" connection-validation-method="auto-commit" res-type="javax.sql.ConnectionPoolDataSource">
       <property name="port" value="3306"></property>
       <property name="user" value="easycim"></property>
-      <property name="password" value="3a$yc1m_{{ inventory_hostname.split('-')[1] }}"></property>
+      <property name="password" value="3a$yc1m_{{ inventory_hostname.split('-')[0] }}"></property>
       <property name="noAccessToProcedureBodies" value="true"></property>
       <property name="databaseName" value="statistics_config"></property>
       <property name="relaxAutoCommit" value="true"></property>
