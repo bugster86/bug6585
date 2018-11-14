@@ -1,0 +1,10 @@
+- file: path=/var/easycim3 state=directory owner=glassfish group=glassfish mode=0775
+
+- name: scompatto la cartella report.tar.gz
+  unarchive:
+    src: "{{ src_rdp }}/report.tar.gz"
+    dest: /var/easycim3/
+    owner: glassfish
+    group: glassfish
+    mode: 0755
+    extra_opts: "--strip-components=2"
