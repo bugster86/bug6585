@@ -8,7 +8,7 @@
     
 - name: scompatto la cartella 
   unarchive:
-    src: "{{ src_rdp }}/pentaho8/pdi-ce-8.0.0.0-28.zip"
+    src: "{{ src_rdp }}/pentaho8/pdi-ce-8.0.0.0-28.tar.gz"
     dest: /var/opt/pentaho/
     extra_opts: "--overwrite"
     owner: root
