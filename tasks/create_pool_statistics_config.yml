@@ -2,14 +2,14 @@
 - name: posiziono il file pool.xml (valorizzo il template)
   template: 
     src: template/pool.j2
-    dest: /root/pool.xml
+    dest: /opt/glassfish4/pool.xml
     owner: root
     group: root
     mode: 0777
 
 - block:
   - name: creazione del pool
-    shell: asadmin add-resources /root/pool.xml
+    shell: asadmin add-resources /opt/glassfish4/pool.xml
     environment:
           PATH: "{{ ansible_env.PATH }}:/usr/java/default/bin:/opt/glassfish/bin/"  
     failed_when: false
@@ -34,5 +34,5 @@
     
       
   - name: cancello il file pool.xml
-    file: path=/root/pool.xml state=absent
+    file: path=/opt/glassfish4/pool.xml state=absent
   when: not ansible_check_mode  
