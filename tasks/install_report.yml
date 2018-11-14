@@ -20,7 +20,7 @@
   - include: set_report.yml   
   
   when:
-  - dir.stat.exists
+  - dir1.stat.exists
   - glassfish_attivo.rc == 0    
   
 
