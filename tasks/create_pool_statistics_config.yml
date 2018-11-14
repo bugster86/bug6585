@@ -9,6 +9,7 @@
 
 - name: creazione del pool
   shell: asadmin add-resources /root/pool.xml
+  environment:
         PATH: "{{ ansible_env.PATH }}:/usr/java/default/bin:/opt/glassfish/bin/"  
   failed_when: false
   register: creazione_pool    
@@ -19,6 +20,7 @@
 - block:
   - name: pingo il pool appena creato
     shell: asadmin ping-connection-pool statistics_config
+    environment:
           PATH: "{{ ansible_env.PATH }}:/usr/java/default/bin:/opt/glassfish/bin/"
     changed_when: false
     failed_when: false
