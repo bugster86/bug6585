@@ -1,3 +1,16 @@
+# Se esiste la cartella /opt/pentaho/statistics ci possiamo copiare dentro la cartella lib
+- stat: path=/opt/pentaho/statistics
+  register: dirlib
+  
+- copy: 
+    src: "{{ src_rdp }}/lib"
+    dest: /opt/pentaho/statistics/
+    owner: root
+    group: root
+    mode: 0755
+  when: dirlib.stat.exists
+
+
 # Per ogni ecas su cui stiamo lavorando creiamo l'utente ctreport con password ctreport per la
 # comunicazione con LOCALIZATION
 - name: creo l'utente ctreport
