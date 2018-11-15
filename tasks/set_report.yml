@@ -8,3 +8,8 @@
     group: glassfish
     mode: 0755
     extra_opts: "--strip-components=2"
+    
+- name: modifico i permessi della cartella /var/easycim3/reports/resources/localization
+  file: 
+    mode: 0777
+    path:  /var/easycim3/reports/resources/localization
