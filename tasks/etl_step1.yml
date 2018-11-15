@@ -5,12 +5,14 @@
   unarchive:
     src: "{{ src_rdp }}/etl.tar.gz"
     dest: /var/opt/pentaho/statistics/
-    
+ 
+- file: state=absent path=/var/opt/pentaho/data-integration
+
 - name: scompatto la cartella 
   unarchive:
     src: "{{ src_rdp }}/pentaho8/pdi-ce-8.0.0.0-28.tar.gz"
     dest: /var/opt/pentaho/
-    extra_opts: "--overwrite --overwrite-dir"
+    extra_opts: "--overwrite"
     owner: root
     group: root
     mode: 0755
