@@ -10,7 +10,7 @@
   unarchive:
     src: "{{ src_rdp }}/pentaho8/pdi-ce-8.0.0.0-28.tar.gz"
     dest: /var/opt/pentaho/
-    extra_opts: "--overwrite"
+    extra_opts: "--overwrite --overwrite-dir"
     owner: root
     group: root
     mode: 0755
