@@ -13,3 +13,4 @@
   file: 
     mode: 0777
     path:  /var/easycim3/reports/resources/localization
+  when:  not ansible_check_mode
