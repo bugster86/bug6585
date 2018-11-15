@@ -12,6 +12,11 @@
 - include: check_parameter.yml
   delegate_to: localhost
   run_once: true
+  
+  # prima di partire con l'aggiornamento di EasyCIM 3.6.3 controllo che il primo server cti abbia pacchetto 7.0.5
+  # Se non specifico nessun parametro contact, il riferimento viene preso guardando la macchina pentaho
+- include: check_contact_version.yml
+  when: ( contact is not defined and inventory_hostname == pentaho ) or ( contact is defined and inventory_hostname == contact )
 
 - include: present_tomcat.yml
   when: inventory_hostname == pentaho

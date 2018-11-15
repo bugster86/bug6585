@@ -1,0 +1,11 @@
+- name: controllo la versione di contact
+  shell: "rpm -q cth-libs | grep {{ min_version_contact }}"
+  check_mode: false
+  failed_when: false
+  changed_when: false
+  register: contact_version
+  
+- block:
+  - fail: msg="Contact deve essere alla versione 7.0.5-2 almeno. Non posso proseguire"
+  - meta: end_play
+  when: contact_version.rc != 0
