@@ -17,6 +17,15 @@
   # Se non specifico nessun parametro contact, il riferimento viene preso guardando la macchina pentaho
 - include: check_contact_version.yml
   when: ( contact is not defined and inventory_hostname == pentaho ) or ( contact is defined and inventory_hostname == contact )
+  
+- include: undeploy_applicazioni.yml
+  when: "'ecas' in inventory_hostname"
+  with_items:
+  - 'agentdesktopmanager-'
+  - 'EasyCIM-'
+  - 'TaskManagerSystem-'
+  - 'WorkflowManager-'
+  - 'easyintegration-'    
 
 - include: present_tomcat.yml
   when: inventory_hostname == pentaho
