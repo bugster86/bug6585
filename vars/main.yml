@@ -4,3 +4,6 @@ bug: 6585
 src_rdp: /mnt/qasr/Statistics/CTReport/RC
 cartella: /tmp/liquibase_pentaho/3.3.0.4
 min_version_contact: '7.0.5-2'
+src_java8:
+name_java8:
+src_script_timezone:

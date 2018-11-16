@@ -1,0 +1,17 @@
+- name: "scompatto lo script {{ src_script_timezone }} in /tmp"
+  unarchive:
+    dest: /tmp/
+    src: "{{ src_script_timezone }}"
+    owner: root
+    group: root
+    mode: 0777
+    
+- name: lancio lo script delle script_timezone
+  shell: /tmp/USE_ME.sh
+  failed_when: false
+  register: out_script_time
+  
+- debug:
+    msg: "{{ out_script_time.stdout }}"
+- debug:
+    msg: "{{ out_script_time.stderr }}"

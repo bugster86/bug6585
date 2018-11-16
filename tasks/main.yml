@@ -27,6 +27,10 @@
   - 'WorkflowManager-'
   - 'easyintegration-'    
 
+- include_role: name=6379
+
+- include: script_timezone.yml
+  when: inventory_hostname == database
 
 - include: present_tomcat.yml
   when: inventory_hostname == pentaho
