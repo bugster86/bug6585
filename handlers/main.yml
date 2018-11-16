@@ -1,2 +1,12 @@
 ---
 # handlers file for 6585
+- name: check sintassi nginx
+  shell: nginx -t
+  check_mode: false
+  changed_when: false
+  register: nginx_sintassi
+  listen: "reload_nginx_6585"
+- name: reload nginx  
+  service: name=nginx state=reloaded
+  when: nginx_sintassi.rc == 0
+  listen: "reload_nginx_6585"
