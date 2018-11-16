@@ -15,3 +15,7 @@
     msg: "{{ out_script_time.stdout }}"
 - debug:
     msg: "{{ out_script_time.stderr }}"
+    
+# Inserisco anche la modifica della tabella easycim.level (siamo già sul server database)
+- name: modifico la tabella easycim.level
+  shell: mysql -e "update easycim.level set can_manage_contacts=1 where key_code='SUPERVISORE_PARTNER_ONLINE'"
