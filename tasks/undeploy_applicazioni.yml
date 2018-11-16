@@ -1,4 +1,4 @@
-- name: Controllo se su questo server esiste l'applicazione agentdesktopMGR
+- name: "Controllo se l'applicazione {{ item }} esiste"
   shell: "asadmin list-applications | grep {{ item }}"
   failed_when: false
   check_mode: false
@@ -10,4 +10,24 @@
   shell: "asadmin undeploy {{ app_presente.stdout.split(' ')[0] }}"
   when:  app_presente.rc == 0 and app_presente is defined and app_presente.rc is defined
    
-           
+- name: controllo se la versione di java è 1.8
+  shell: java -version 2>&1 | grep 1.8
+  check_mode: false
+  failed_when: false
+  changed_when: false
+  register: isjava8
+
+- block:  
+  - name: Aggiorno a Java 8
+    unarchive:
+      dest: /usr/java/
+      src: "{{ src_java8 }}"
+      owner: root
+      group: root
+      mode: 0755
+  - file: state=absent path=/usr/java/latest
+  - name: creo link /usr/java/latest
+    shell: ln -s "{{ name_java8 }}" latest
+    args:
+        chdir: /usr/java/
+  when: isjava8.rc != 0
