@@ -27,6 +27,7 @@
   - 'WorkflowManager-'
   - 'easyintegration-'    
 
+
 - include: present_tomcat.yml
   when: inventory_hostname == pentaho
 
